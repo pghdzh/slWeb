@@ -1,6 +1,6 @@
 <template>
     <header class="top-nav">
-        <div class="top-nav__brand">霜落映界</div>
+
         <button class="top-nav__toggle" @click="isOpen = !isOpen" aria-label="Toggle menu">
             <span :class="{ 'open': isOpen }"></span>
             <span :class="{ 'open': isOpen }"></span>
@@ -48,20 +48,13 @@ $breakpoint-mobile: 768px;
 .top-nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     background-color: #ffffff;
     padding: 0.75rem 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     height: 64px;
 
-    &__brand {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #1e90ff;
-        letter-spacing: 1px;
-        transform: translateY(-100%);
-        animation: slide-down 0.5s ease-out forwards;
-    }
+
 
     &__toggle {
         display: none;
