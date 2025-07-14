@@ -15,6 +15,24 @@ const router = createRouter({
       path: "/redirector",
       component: () => import("@/views/redirectorView/index.vue"),
     },
+    {
+      path: "/blog",
+      component: () => import("@/views/blogView/index.vue"),
+    },
+    {
+      path: "/blog/:id",
+      name: "BlogDetail",
+      component: () => import("@/views/blogView/BlogDetailView/index.vue"),
+      props: true, // 将路由参数 id 作为 props 传给组件
+    },
+    {
+      path: "/lottery",
+      component: () => import("@/views/lotteryView/index.vue"),
+    },
+    {
+      path: "/vote",
+      component: () => import("@/views/voteView/index.vue"),
+    },
   ],
   scrollBehavior() {
     return { top: 0 };

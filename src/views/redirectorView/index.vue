@@ -62,14 +62,14 @@ function go(url: string) {
 </script>
 
 <style lang="scss" scoped>
-$card-width: 260px;
-$card-height: 360px;
+$card-width: 360px;
+$card-height: 260px;
 $primary-color: #1e90ff;
 
 .redirector {
     padding: 3rem 1rem;
     text-align: center;
-    background: #0a0a10;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
     min-height: 100vh;
 
     &__title {
