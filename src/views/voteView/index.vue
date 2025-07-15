@@ -7,95 +7,125 @@
 
     <section class="vote__form">
       <div class="form-group">
-        <input
-          v-model="newOption"
-          placeholder="输入新的候选角色并回车，或点击添加"
-          @keyup.enter="addOption"
-          class="vote__input"
-        />
-        <button
-          @click="addOption"
-          :disabled="!newOption.trim()"
-          class="vote__add-btn"
-        >添加选项</button>
+        <input v-model="newOption" placeholder="输入新的候选角色并回车，或点击添加" @keyup.enter="addOption" class="vote__input" />
+        <button @click="addOption" :disabled="!newOption.trim()" class="vote__add-btn">添加选项</button>
       </div>
     </section>
 
     <ul class="vote__list">
-      <li
-        v-for="option in options"
-        :key="option.id"
-        class="vote__item"
-      >
+      <li v-for="option in options" :key="option.id" class="vote__item">
         <div class="vote__info">
           <span class="vote__label">{{ option.text }}</span>
           <span class="vote__votes">{{ option.votes }} 票</span>
         </div>
         <div class="vote__bar-container">
-          <div
-            class="vote__bar"
-            :style="{ width: (option.votes / totalVotes * 100) + '%' }"
-          ></div>
+          <div class="vote__bar" :style="{ width: (option.votes / totalVotes * 100) + '%' }"></div>
         </div>
-        <button
-          class="vote__btn"
-          @click="vote(option.id)"
-          :disabled="hasVoted(option.id)"
-        >投 一 票</button>
+        <button class="vote__btn" @click="vote(option.id)" :disabled="hasVoted(option.id)">投 一 票</button>
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch, computed } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
+import {
+  getOptions,
+  addOption as apiAddOption,
+  voteOption as apiVoteOption,
+} from '@/api/modules/vote'
+import { ElMessage } from 'element-plus'
 
 type Option = { id: number; text: string; votes: number }
-const STORAGE_KEY = 'vote_options'
-const VOTED_KEY = 'vote_voted'
-
 const options = reactive<Option[]>([])
 const newOption = ref('')
+// 本地用来防止重复投票
+const VOTED_KEY = 'vote_voted'
 const voted = ref<Set<number>>(new Set())
 
-onMounted(() => {
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (stored) options.push(...JSON.parse(stored))
+// 读取已投记录
+function loadVoted() {
   const vs = localStorage.getItem(VOTED_KEY)
-  if (vs) voted.value = new Set(JSON.parse(vs))
-})
-
-watch(
-  options,
-  val => localStorage.setItem(STORAGE_KEY, JSON.stringify(val)),
-  { deep: true }
-)
-watch(
-  () => Array.from(voted.value),
-  val => localStorage.setItem(VOTED_KEY, JSON.stringify(val))
-)
-
-const totalVotes = computed(() => options.reduce((sum, o) => sum + o.votes, 0) || 1)
-
-function addOption() {
-  const text = newOption.value.trim()
-  if (!text) return
-  options.push({ id: Date.now(), text, votes: 0 })
-  newOption.value = ''
+  voted.value = vs ? new Set(JSON.parse(vs)) : new Set()
+}
+// 保存已投记录
+function saveVoted() {
+  localStorage.setItem(VOTED_KEY, JSON.stringify(Array.from(voted.value)))
 }
 
-function vote(id: number) {
-  const opt = options.find(o => o.id === id)
-  if (opt && !voted.value.has(id)) {
-    opt.votes++
-    voted.value.add(id)
+// 从接口加载所有选项
+async function loadOptions() {
+  try {
+    const res = await getOptions()
+    if (res.success) {
+      // 1. 先对数据按 votes 降序排序
+      const sorted = res.data.sort((a, b) => b.votes - a.votes)
+      // 2. 再用 splice 原地替换 options
+      options.splice(0, options.length, ...sorted)
+    } else {
+      ElMessage.error('获取投票选项失败')
+    }
+  } catch {
+    ElMessage.error('网络异常，获取投票选项失败')
+  }
+}
+
+const totalVotes = computed(() =>
+  options.reduce((sum, o) => sum + o.votes, 0) || 1
+)
+
+// 添加新选项
+async function addOption() {
+  const text = newOption.value.trim()
+  if (!text) return
+  try {
+    const res = await apiAddOption({ text })
+    if (res.success) {
+      options.unshift(res.data)   // 新选项放到最前面
+      newOption.value = ''
+      ElMessage.success('添加成功')
+    } else {
+      ElMessage.error(res.message || '添加失败')
+    }
+  } catch (err: any) {
+    if (err.response?.status === 409) {
+      ElMessage.warning('该选项已存在')
+    } else {
+      ElMessage.error('网络异常，添加失败')
+    }
+  }
+}
+
+// 投一票
+async function vote(id: number) {
+  if (voted.value.has(id)) return
+  try {
+    const res = await apiVoteOption(id)
+    if (res.success) {
+      // 本地标记已投，并保存
+      voted.value.add(id)
+      saveVoted()
+      // 更新前端展示：重新拉一次最新数据
+      await loadOptions()
+      ElMessage.success('投票成功')
+    } else {
+      ElMessage.error(res.message || '投票失败')
+    }
+  } catch {
+    ElMessage.error('网络异常，投票失败')
   }
 }
 
 function hasVoted(id: number) {
   return voted.value.has(id)
 }
+
+onMounted(() => {
+  loadVoted()
+  loadOptions()
+})
 </script>
+
 
 <style lang="scss" scoped>
 .vote-container {
@@ -120,6 +150,7 @@ function hasVoted(id: number) {
     margin: 0;
     font-weight: 700;
   }
+
   .vote__desc {
     font-size: 1rem;
     color: #555;
@@ -141,9 +172,10 @@ function hasVoted(id: number) {
       border-radius: 0.75rem;
       font-size: 1rem;
       transition: border-color 0.3s, box-shadow 0.3s;
+
       &:focus {
         border-color: #1e90ff;
-        box-shadow: 0 0 8px rgba(30,144,255,0.3);
+        box-shadow: 0 0 8px rgba(30, 144, 255, 0.3);
         outline: none;
       }
     }
@@ -157,13 +189,15 @@ function hasVoted(id: number) {
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.3s, box-shadow 0.3s;
+
       &:disabled {
         background: #ccc;
         cursor: not-allowed;
       }
+
       &:hover:not(:disabled) {
         transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(30,144,255,0.4);
+        box-shadow: 0 6px 18px rgba(30, 144, 255, 0.4);
       }
     }
   }
@@ -184,12 +218,12 @@ function hasVoted(id: number) {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s, box-shadow 0.3s;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
 
   .vote__info {
@@ -225,10 +259,12 @@ function hasVoted(id: number) {
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s;
+
     &:disabled {
       background: #aaa;
       cursor: not-allowed;
     }
+
     &:hover:not(:disabled) {
       background: #1877e0;
     }
@@ -236,21 +272,36 @@ function hasVoted(id: number) {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @media (max-width: 600px) {
   .vote-container {
     padding: 1.5rem 0.5rem;
   }
+
   .vote__header {
     margin-bottom: 1rem;
   }
+
   .vote__form {
     margin-bottom: 1.5rem;
-    .form-group { flex-direction: column; }
-    .vote__add-btn { width: 100%; }
+
+    .form-group {
+      flex-direction: column;
+    }
+
+    .vote__add-btn {
+      width: 100%;
+    }
   }
 }
 </style>
