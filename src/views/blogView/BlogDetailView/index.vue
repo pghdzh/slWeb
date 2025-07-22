@@ -9,7 +9,7 @@
         <article class="article" ref="articleRef">
             <h1 class="article__title" v-html="post.title"></h1>
             <div class="article__meta">
-                <span>{{ formatDate(post.date) }}</span> ·
+                <span>{{ formatDate(post.publish_date) }}</span> ·
                 <span>阅读 {{ post.views }}</span>
             </div>
             <div class="article__content">
@@ -28,21 +28,14 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
-interface Post {
-    id: number
-    title: string
-    date: string
-    views: number
-    content: string[]
-}
+import { getPostDetail, updatePost } from "@/api/modules/blog"
 
 const route = useRoute()
 const router = useRouter()
 const post = ref<Post>({
     id: 0,
     title: '',
-    date: '',
+    publish_date: '',
     views: 0,
     content: []
 })
@@ -70,18 +63,21 @@ function goBack() {
 function formatDate(str: string) {
     return new Date(str).toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' })
 }
-
-function fetchPost(id: number) {
-    // 模拟获取数据，后续替换 API
-    post.value = {
-        id,
-        title: `示例札记标题 ${id}`,
-        date: new Date().toISOString(),
-        views: Math.floor(Math.random() * 1000) + 100,
-        content: Array.from({ length: 8 }, (_, i) => `这是札记正文段落 ${i + 1} 的示例内容，用于展示文章布局和动效效果。`)
+async function fetchPost(id: number) {
+    try {
+        // 1. 拉取文章详情 
+        const res = await getPostDetail(id)
+        if (res.success && res.data) {
+            post.value = res.data
+            // 2. 阅读量 +1   
+            await updatePost(id, { views: post.value.views + 1 })
+            // 本地立即反映  
+            post.value.views += 1
+        }
+    } catch (err) {
+        console.error('获取文章详情或更新阅读量失败', err)
     }
 }
-
 onMounted(() => {
     const id = Number(route.params.id)
     fetchPost(id)
@@ -104,6 +100,7 @@ $accent: #1e90ff;
     padding: 0 1rem 2rem;
     position: relative;
     min-height: calc(100vh - 64px);
+
     .progress-bar {
         position: fixed;
         top: 0;

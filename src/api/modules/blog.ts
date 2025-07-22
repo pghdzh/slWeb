@@ -5,8 +5,8 @@ export interface Post {
   id?: number;
   title: string;
   excerpt: string;
-  content: string;        // Markdown 格式
-  publish_date: string;   // "YYYY-MM-DD" 或完整 ISO 字符串
+  content: string; // Markdown 格式
+  publish_date: string; // "YYYY-MM-DD" 或完整 ISO 字符串
   views?: number;
 }
 
@@ -17,15 +17,17 @@ export interface Post {
 export const getPostList = (params: {
   page?: number;
   pageSize?: number;
-}): Promise<ResultData<{
-  rows: Post[];
-  pagination: {
-    total: number;
-    page: number;
-    pageSize: number;
-    totalPages: number;
-  };
-}>> => {
+}): Promise<
+  ResultData<{
+    rows: Post[];
+    pagination: {
+      total: number;
+      page: number;
+      pageSize: number;
+      totalPages: number;
+    };
+  }>
+> => {
   return http.get("/api/blog", params);
 };
 
@@ -35,19 +37,6 @@ export const getPostList = (params: {
  */
 export const getPostDetail = (id: number): Promise<ResultData<Post>> => {
   return http.get(`/api/blog/${id}`);
-};
-
-/**
- * @function 新增文章
- * @param data - { title, excerpt, content, publish_date }
- */
-export const addPost = (data: {
-  title: string;
-  excerpt: string;
-  content: string;
-  publish_date?: string;
-}): Promise<ResultData<Post>> => {
-  return http.post("/api/blog", data);
 };
 
 /**
@@ -67,4 +56,3 @@ export const updatePost = (
 ): Promise<ResultData<Post>> => {
   return http.put(`/api/blog/${id}`, data);
 };
-

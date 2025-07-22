@@ -36,8 +36,8 @@ const items: NavItem[] = [
     { label: '映界首页', path: '/' },
     { label: '角色入口', path: '/redirector' },
     { label: '构筑札记', path: '/blog' },
-    { label: '抽奖', path: '/lottery' },
     { label: '命运投票', path: '/vote' },
+    { label: '抽奖', path: '/lottery' },
 ]
 
 </script>
@@ -89,6 +89,8 @@ $breakpoint-mobile: 768px;
     }
 
     &__menu {
+        z-index: 99;
+
         ul {
             display: flex;
             gap: 2rem;
