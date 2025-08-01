@@ -6,6 +6,11 @@
     </section>
 
     <section class="vote__form">
+      <div class="vote__tip">
+        ⚠️ 添加前请先前往
+        <span class="vote__link" @click="goToRedirector">角色入口</span>
+        页面确认是否已有对应角色
+      </div>
       <div class="form-group">
         <input v-model="newOption" placeholder="输入新的候选角色并回车，或点击添加" @keyup.enter="addOption" class="vote__input" />
         <button @click="addOption" :disabled="!newOption.trim()" class="vote__add-btn">添加选项</button>
@@ -35,7 +40,13 @@ import {
   voteOption as apiVoteOption,
 } from '@/api/modules/vote'
 import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+
+function goToRedirector() {
+  router.push('/redirector')
+}
 type Option = { id: number; text: string; votes: number }
 const options = reactive<Option[]>([])
 const newOption = ref('')
@@ -160,6 +171,23 @@ onMounted(() => {
 
 .vote__form {
   margin-bottom: 2rem;
+
+  .vote__tip {
+    font-size: 0.9rem;
+    color: #ff4d4f;
+    margin-bottom: 0.5rem;
+
+    .vote__link {
+      color: #1e90ff;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
 
   .form-group {
     display: flex;

@@ -20,12 +20,6 @@ const router = createRouter({
       component: () => import("@/views/blogView/index.vue"),
     },
     {
-      path: "/blog/:id",
-      name: "BlogDetail",
-      component: () => import("@/views/blogView/BlogDetailView/index.vue"),
-      props: true, // 将路由参数 id 作为 props 传给组件
-    },
-    {
       path: "/lottery",
       component: () => import("@/views/lotteryView/index.vue"),
     },

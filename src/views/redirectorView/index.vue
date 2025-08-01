@@ -53,7 +53,15 @@ const portals: Portal[] = [
         img: new URL('@/views/redirectorView/images/4.png', import.meta.url).href,
         desc: '言语与情感的编织者',
         gradientStart: 'rgba(255, 189, 46, 0.7)' // 金黄
+    },
+    {
+        name: '珂朵莉',
+        url: 'http://1.94.189.79:9524/#/',
+        img: new URL('@/views/redirectorView/images/5.png', import.meta.url).href,
+        desc: '花与牺牲的终焉之诗',
+        gradientStart: 'rgba(255, 115, 234, 0.7)' // 樱花粉紫
     }
+
 ]
 
 function go(url: string) {

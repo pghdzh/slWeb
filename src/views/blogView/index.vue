@@ -2,7 +2,7 @@
   <div class="blog-list" ref="listRef">
     <h2 class="blog-list__title">构筑札记</h2>
     <ul class="blog-list__items">
-      <li v-for="(post, index) in posts" :key="post.id" class="post-item" @click="goDetail(post.id)"
+      <li v-for="(post, index) in posts" :key="post.id" class="post-item" @click="goDetail(post)"
         :style="{ animationDelay: `${index * 100}ms` }">
         <div class="post-item__header">
           <h3 class="post-item__title">{{ post.title }}</h3>
@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { getPostList } from "@/api/modules/blog"
+import { getPostList, updatePost } from "@/api/modules/blog"
 interface Post {
   id: number
   title: string
@@ -33,7 +33,7 @@ interface Post {
 const router = useRouter()
 const posts = ref<Post[]>([])
 const page = ref(1)
-const pageSize = 6
+const pageSize = 99
 const totalPages = ref(Infinity)
 const loading = ref(false)
 
@@ -45,7 +45,7 @@ async function fetchPosts() {
   try {
     const res = await getPostList({ page: page.value, pageSize })
     if (res.success) {
-      posts.value.push(...res.data)
+      posts.value = res.data
       totalPages.value = res.pagination.totalPages
     }
   } catch (e) {
@@ -54,27 +54,17 @@ async function fetchPosts() {
     loading.value = false
   }
 }
-function onWindowScroll() {
-  const scrollY = window.scrollY || window.pageYOffset
-  const vh = window.innerHeight
-  const bodyHeight = document.documentElement.scrollHeight
-  if (scrollY + vh >= bodyHeight - 10) {
-    page.value++
-    fetchPosts()
-  }
-}
+
 
 onMounted(() => {
   fetchPosts()
-  window.addEventListener('scroll', onWindowScroll)
 })
 
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', onWindowScroll)
-})
 
-function goDetail(id: number) {
-  router.push({ name: 'BlogDetail', params: { id } })
+async function goDetail(post: Post) {
+  await updatePost(post.id, { views: post.views + 1 })
+  fetchPosts()
+  window.open(post.content, '_blank');
 }
 
 function formatDate(str: string) {

@@ -32,14 +32,6 @@ export const getPostList = (params: {
 };
 
 /**
- * @function 获取单篇文章详情
- * @param id - 文章 ID
- */
-export const getPostDetail = (id: number): Promise<ResultData<Post>> => {
-  return http.get(`/api/blog/${id}`);
-};
-
-/**
  * @function 修改文章
  * @param id   - 要修改的文章 ID
  * @param data - 可选字段：{ title?, excerpt?, content?, publish_date?, views? }
