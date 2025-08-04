@@ -6,14 +6,18 @@
     </section>
 
     <section class="vote__form">
-      <div class="vote__tip">
+      <div class="vote__notice notice--check">
         ⚠️ 添加前请先前往
         <span class="vote__link" @click="goToRedirector">角色入口</span>
         页面确认是否已有对应角色
       </div>
-      <div class="form-group">
-        <input v-model="newOption" placeholder="输入新的候选角色并回车，或点击添加" @keyup.enter="addOption" class="vote__input" />
-        <button @click="addOption" :disabled="!newOption.trim()" class="vote__add-btn">添加选项</button>
+      <div class="vote__notice notice--contact">
+        🚫 因为无法有效防止刷票，请点击
+        <a class="vote__link" href="https://message.bilibili.com/?spm_id_from=333.1387.0.0#/whisper/mid372611876"
+          target="_blank">
+          B站私信
+        </a>
+        给我留言想添加或者投票的角色吧
       </div>
     </section>
 
@@ -26,7 +30,6 @@
         <div class="vote__bar-container">
           <div class="vote__bar" :style="{ width: (option.votes / totalVotes * 100) + '%' }"></div>
         </div>
-        <button class="vote__btn" @click="vote(option.id)" :disabled="hasVoted(option.id)">投 一 票</button>
       </li>
     </ul>
   </div>
@@ -36,8 +39,6 @@
 import { ref, reactive, onMounted, computed } from 'vue'
 import {
   getOptions,
-  addOption as apiAddOption,
-  voteOption as apiVoteOption,
 } from '@/api/modules/vote'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
@@ -49,20 +50,8 @@ function goToRedirector() {
 }
 type Option = { id: number; text: string; votes: number }
 const options = reactive<Option[]>([])
-const newOption = ref('')
-// 本地用来防止重复投票
-const VOTED_KEY = 'vote_voted'
-const voted = ref<Set<number>>(new Set())
 
-// 读取已投记录
-function loadVoted() {
-  const vs = localStorage.getItem(VOTED_KEY)
-  voted.value = vs ? new Set(JSON.parse(vs)) : new Set()
-}
-// 保存已投记录
-function saveVoted() {
-  localStorage.setItem(VOTED_KEY, JSON.stringify(Array.from(voted.value)))
-}
+
 
 // 从接口加载所有选项
 async function loadOptions() {
@@ -85,54 +74,7 @@ const totalVotes = computed(() =>
   options.reduce((sum, o) => sum + o.votes, 0) || 1
 )
 
-// 添加新选项
-async function addOption() {
-  const text = newOption.value.trim()
-  if (!text) return
-  try {
-    const res = await apiAddOption({ text })
-    if (res.success) {
-      options.unshift(res.data)   // 新选项放到最前面
-      newOption.value = ''
-      ElMessage.success('添加成功')
-    } else {
-      ElMessage.error(res.message || '添加失败')
-    }
-  } catch (err: any) {
-    if (err.response?.status === 409) {
-      ElMessage.warning('该选项已存在')
-    } else {
-      ElMessage.error('网络异常，添加失败')
-    }
-  }
-}
-
-// 投一票
-async function vote(id: number) {
-  if (voted.value.has(id)) return
-  try {
-    const res = await apiVoteOption(id)
-    if (res.success) {
-      // 本地标记已投，并保存
-      voted.value.add(id)
-      saveVoted()
-      // 更新前端展示：重新拉一次最新数据
-      await loadOptions()
-      ElMessage.success('投票成功')
-    } else {
-      ElMessage.error(res.message || '投票失败')
-    }
-  } catch {
-    ElMessage.error('网络异常，投票失败')
-  }
-}
-
-function hasVoted(id: number) {
-  return voted.value.has(id)
-}
-
 onMounted(() => {
-  loadVoted()
   loadOptions()
 })
 </script>
@@ -172,63 +114,36 @@ onMounted(() => {
 .vote__form {
   margin-bottom: 2rem;
 
-  .vote__tip {
+  .vote__notice {
     font-size: 0.9rem;
-    color: #ff4d4f;
+    line-height: 1.6;
     margin-bottom: 0.5rem;
+    border-left: 4px solid #ff4d4f;
+    padding-left: 0.75rem;
 
-    .vote__link {
-      color: #1e90ff;
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: underline;
+    &.notice--check {
+      color: #ff4d4f;
+      background: rgba(255, 77, 79, 0.05);
+    }
 
-      &:hover {
-        text-decoration: none;
-      }
+    &.notice--contact {
+      color: #ffa500;
+      background: rgba(255, 165, 0, 0.08);
     }
   }
 
-  .form-group {
-    display: flex;
-    gap: 0.75rem;
+  .vote__link {
+    color: #1e90ff;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
 
-    .vote__input {
-      flex: 1;
-      padding: 0.75rem 1rem;
-      border: 2px solid #ddd;
-      border-radius: 0.75rem;
-      font-size: 1rem;
-      transition: border-color 0.3s, box-shadow 0.3s;
-
-      &:focus {
-        border-color: #1e90ff;
-        box-shadow: 0 0 8px rgba(30, 144, 255, 0.3);
-        outline: none;
-      }
-    }
-
-    .vote__add-btn {
-      padding: 0 1.5rem;
-      background: linear-gradient(135deg, #1e90ff, #54a0ff);
-      color: #fff;
-      border: none;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-
-      &:disabled {
-        background: #ccc;
-        cursor: not-allowed;
-      }
-
-      &:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(30, 144, 255, 0.4);
-      }
+    &:hover {
+      text-decoration: none;
     }
   }
+
+
 }
 
 .vote__list {
@@ -322,14 +237,6 @@ onMounted(() => {
 
   .vote__form {
     margin-bottom: 1.5rem;
-
-    .form-group {
-      flex-direction: column;
-    }
-
-    .vote__add-btn {
-      width: 100%;
-    }
   }
 }
 </style>
