@@ -1,6 +1,8 @@
 <template>
     <header class="top-nav">
-
+        <div class="online-count" v-if="onlineCount !== null">
+            当前在线：<span class="count">{{ onlineCount }}人</span>
+        </div>
         <button class="top-nav__toggle" @click="isOpen = !isOpen" aria-label="Toggle menu">
             <span :class="{ 'open': isOpen }"></span>
             <span :class="{ 'open': isOpen }"></span>
@@ -21,8 +23,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
+import { io } from "socket.io-client";
+
+const siteId = "slty";
+
+const onlineCount = ref<number | null>(null);
+
+// 连接时带上 query.siteId
+const socket = io("http://1.94.189.79:3000", {
+    query: { siteId },
+});
 
 const route = useRoute()
 const isOpen = ref(false)
@@ -39,6 +51,15 @@ const items: NavItem[] = [
     { label: '命运投票', path: '/vote' },
     { label: '抽奖', path: '/lottery' },
 ]
+onMounted(() => {
+
+    socket.on("onlineCount", (count: number) => {
+        onlineCount.value = count;
+    });
+});
+onBeforeUnmount(() => {
+    socket.disconnect();
+});
 
 </script>
 
@@ -48,11 +69,29 @@ $breakpoint-mobile: 768px;
 .top-nav {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     background-color: #ffffff;
     padding: 0.75rem 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     height: 64px;
+
+    .online-count {
+        background: rgba(255, 255, 255, 0.4);
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.05rem;
+        color: #3a3a3a;
+        transition: all 0.3s ease;
+        .count {
+            color: #1e90ff;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(30, 144, 255, 0.5);
+        }
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba(100, 160, 255, 0.2);
+            transform: translateY(-1px);
+        }
+    }
 
 
 
