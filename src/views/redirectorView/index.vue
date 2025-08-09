@@ -28,35 +28,35 @@ interface Portal {
 const portals: Portal[] = [
     {
         name: '时崎狂三',
-        url: 'http://1.94.189.79:9528/#/',
+        url: 'http://slty.site:9528/#/',
         img: new URL('@/views/redirectorView/images/1.png', import.meta.url).href,
         desc: '时间与存在的化身',
         gradientStart: 'rgba(255, 95, 109, 0.7)' // 热情红
     },
     {
         name: '鸢一折纸',
-        url: 'http://1.94.189.79:9526/#/',
+        url: 'http://slty.site:9526/#/',
         img: new URL('@/views/redirectorView/images/2.png', import.meta.url).href,
         desc: '优雅与力量的交织',
         gradientStart: 'rgba(54, 144, 255, 0.7)' // 冰蓝
     },
     {
         name: '楪祈',
-        url: 'http://1.94.189.79:9525/#/',
+        url: 'http://slty.site:9525/#/',
         img: new URL('@/views/redirectorView/images/3.png', import.meta.url).href,
         desc: '魔法与科技的契约',
         gradientStart: 'rgba(138, 43, 226, 0.7)' // 紫罗兰
     },
     {
         name: '薇尔莉特',
-        url: 'http://1.94.189.79:9527/#/',
+        url: 'http://slty.site:9527/#/',
         img: new URL('@/views/redirectorView/images/4.png', import.meta.url).href,
         desc: '言语与情感的编织者',
         gradientStart: 'rgba(255, 189, 46, 0.7)' // 金黄
     },
     {
         name: '珂朵莉',
-        url: 'http://1.94.189.79:9524/#/',
+        url: 'http://slty.site:9524/#/',
         img: new URL('@/views/redirectorView/images/5.png', import.meta.url).href,
         desc: '花与牺牲的终焉之诗',
         gradientStart: 'rgba(255, 115, 234, 0.7)' // 樱花粉紫
