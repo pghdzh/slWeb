@@ -60,7 +60,15 @@ const portals: Portal[] = [
         img: new URL('@/views/redirectorView/images/5.png', import.meta.url).href,
         desc: '花与牺牲的终焉之诗',
         gradientStart: 'rgba(255, 115, 234, 0.7)' // 樱花粉紫
+    },
+    {
+        name: '加藤惠',
+        url: 'http://slty.site:9523/#/',
+        img: new URL('@/views/redirectorView/images/6.png', import.meta.url).href, // 换成加藤惠的图片路径
+        desc: '不知不觉走进你故事的普通少女',
+        gradientStart: 'rgba(255, 182, 193, 0.7)' // 淡粉樱色，贴合加藤惠温柔的气质
     }
+
 
 ]
 
