@@ -67,9 +67,22 @@ const portals: Portal[] = [
         img: new URL('@/views/redirectorView/images/6.png', import.meta.url).href, // 换成加藤惠的图片路径
         desc: '不知不觉走进你故事的普通少女',
         gradientStart: 'rgba(255, 182, 193, 0.7)' // 淡粉樱色，贴合加藤惠温柔的气质
+    },
+
+    {
+        name: '夜刀神十香',
+        url: 'http://slty.site:9522/#/',
+        img: new URL('@/views/redirectorView/images/7.png', import.meta.url).href, // 换成十香的图片路径
+        desc: '宛如烈焰般炽热又单纯的精灵公主',
+        gradientStart: 'rgba(138, 43, 226, 0.7)' // 深紫与蓝的交融，代表十香的灵力与神秘
+    },
+    {
+        name: '韩立',
+        url: 'http://slty.site:9521/#/',
+        img: new URL('@/views/redirectorView/images/8.png', import.meta.url).href, // 换成韩立的图片路径
+        desc: '凡人起步，修仙路上步步为营的坚定者',
+        gradientStart: 'rgba(34, 139, 34, 0.7)' // 青绿色，象征修仙与坚韧
     }
-
-
 ]
 
 function go(url: string) {

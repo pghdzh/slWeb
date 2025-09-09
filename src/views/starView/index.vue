@@ -20,6 +20,8 @@
           <span class="highlight">600</span> 粉丝开启抽奖（流麻、透光浮雕）
         </p>
         <p>根据充电量增加获奖权重</p>
+        <a href="https://www.bilibili.com/video/BV1tGadzeEin/?vd_source=9c226743db4604656f7bd757543d8bad">已开始（9.13结束）点击跳转
+        </a>
       </div>
     </div>
     <div class="hero">
@@ -60,6 +62,9 @@
                 粉丝开启抽奖（流麻、透光浮雕）
               </p>
               <p>根据充电量增加获奖权重</p>
+              <a href="https://www.bilibili.com/video/BV1tGadzeEin/?vd_source=9c226743db4604656f7bd757543d8bad">已开始（9.13结束）点击跳转
+              </a>
+
             </div>
           </div>
         </div>
@@ -70,7 +75,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { getBiliChargeList, getBiliFansCount } from "@/api/modules/bilbilReq";
+import { getBiliFansCount } from "@/api/modules/bilbilReq";
+import { getRankingMoneyList } from "@/api/modules/rankingsMoney"
 // 排行榜示例数据
 interface RankItem {
   name: string;
@@ -138,34 +144,12 @@ onMounted(async () => {
   }
 
   try {
-    const res2 = await getBiliChargeList();
+    const res2 = await getRankingMoneyList();
     if (res2.success) {
-      const rawData = res2.data.data.result;
-      const map = new Map<string, number>();
-      rawData.forEach(({ name, brokerage }) => {
-        map.set(name, (map.get(name) || 0) + brokerage);
-      });
-
-      // 2. 转成数组并排序
-      const result: RankItem[] = Array.from(map.entries())
-        .map(([name, value]) => ({ name, value: parseFloat(value.toFixed(2)) }))
-        .sort((a, b) => b.value - a.value);
-      // 3. 赋值
-      ranking.value = result;
-      console.log("result", result);
-      localStorage.setItem('bili-ranking-cache', JSON.stringify(result));
+      ranking.value = res2.data;
     }
   } catch (err) {
     console.error("获取充值记录请求出错：", err);
-    const cached = localStorage.getItem('bili-ranking-cache');
-    if (cached) {
-      try {
-        ranking.value = JSON.parse(cached);
-        console.log("使用本地缓存排名数据：", ranking.value);
-      } catch (parseErr) {
-        console.error("本地缓存解析失败", parseErr);
-      }
-    }
   }
 })
 </script>
@@ -305,7 +289,7 @@ onMounted(async () => {
     right: 0;
     z-index: 30;
     backdrop-filter: blur(6px);
-  
+
     .mobile-btn {
       flex: 1;
       margin: 0 6px;
@@ -456,9 +440,6 @@ onMounted(async () => {
   .name {
     flex: 1;
     margin: 0 8px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     color: #1e90ff;
     font-weight: 600;
   }
