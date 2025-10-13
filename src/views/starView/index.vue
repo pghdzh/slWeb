@@ -17,10 +17,17 @@
       <div class="tips">
         <p>
           当前粉丝：<span class="highlight">{{ fansCount }}</span> / 目标
-          <span class="highlight">1000</span> 粉丝开启抽奖（流麻、透光浮雕）
+          <span class="highlight">3000</span> 粉丝开启抽奖（流麻、透光浮雕）
         </p>
         <p>根据充电量增加获奖权重</p>
-        <a href="https://www.bilibili.com/video/BV1Y2pFzhEkK/">600粉抽奖（已结束）点击查看结果
+        <a class="award-btn" href="https://www.bilibili.com/video/BV1Y2pFzhEkK/" target="_blank" rel="noopener"
+          aria-label="600粉抽奖（已结束）查看">
+          600粉抽奖（已结束） <span class="hint">↗</span>
+        </a>
+
+        <a class="award-btn currentBtn" href="https://www.bilibili.com/video/BV1JX42zmEJe/" target="_blank"
+          rel="noopener" aria-label="千粉抽奖（10.19截止）查看">
+          千粉抽奖（10.19截止） <span class="hint">↗</span>
         </a>
       </div>
     </div>
@@ -58,13 +65,19 @@
             <div class="tips">
               <p>
                 当前粉丝：<span class="highlight">{{ fansCount }}</span> / 目标
-                <span class="highlight">1000</span>
+                <span class="highlight">3000</span>
                 粉丝开启抽奖（流麻、透光浮雕）
               </p>
               <p>根据充电量增加获奖权重</p>
-              <a href="https://www.bilibili.com/video/BV1Y2pFzhEkK/">600粉抽奖（已结束）点击查看结果
+              <a class="award-btn" href="https://www.bilibili.com/video/BV1Y2pFzhEkK/" target="_blank" rel="noopener"
+                aria-label="600粉抽奖（已结束）查看">
+                600粉抽奖（已结束） <span class="hint">↗</span>
               </a>
 
+              <a class="award-btn currentBtn" href="https://www.bilibili.com/video/BV1JX42zmEJe/" target="_blank"
+                rel="noopener" aria-label="千粉抽奖（10.19截止）查看">
+                千粉抽奖（10.19截止） <span class="hint">↗</span>
+              </a>
             </div>
           </div>
         </div>
@@ -390,6 +403,45 @@ onMounted(async () => {
   .highlight {
     color: #ff9f43;
   }
+
+  .award-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-top: 10px;
+    margin-right: 8px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1;
+    transition: transform .18s, box-shadow .18s, background .18s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 主样式：渐变背景（你给的配色） */
+  .award-btn {
+    background: linear-gradient(to right, #d0e2f3, #aadbfa);
+    color: #071428;
+    box-shadow: 0 6px 18px rgba(105, 183, 255, 0.12);
+  }
+
+  .currentBtn {
+       background: linear-gradient(to right, #3198f8, #6bbff3);
+  }
+
+  .award-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(105, 183, 255, 0.18);
+  }
+
+  /* 小提示箭头 */
+  .award-btn .hint {
+    font-size: 12px;
+    opacity: .9;
+  }
+
 }
 
 .rank-item {
