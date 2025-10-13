@@ -29,60 +29,89 @@ const portals: Portal[] = [
     {
         name: '时崎狂三',
         url: 'http://slty.site:9528/#/',
-        img: new URL('@/views/redirectorView/images/1.png', import.meta.url).href,
+        img: new URL('@/views/redirectorView/images/1.webp', import.meta.url).href,
         desc: '时间与存在的化身',
         gradientStart: 'rgba(255, 95, 109, 0.7)' // 热情红
     },
     {
         name: '鸢一折纸',
         url: 'http://slty.site:9526/#/',
-        img: new URL('@/views/redirectorView/images/2.png', import.meta.url).href,
+        img: new URL('@/views/redirectorView/images/2.webp', import.meta.url).href,
         desc: '优雅与力量的交织',
         gradientStart: 'rgba(54, 144, 255, 0.7)' // 冰蓝
     },
     {
         name: '楪祈',
         url: 'http://slty.site:9525/#/',
-        img: new URL('@/views/redirectorView/images/3.png', import.meta.url).href,
+        img: new URL('@/views/redirectorView/images/3.webp', import.meta.url).href,
         desc: '魔法与科技的契约',
         gradientStart: 'rgba(138, 43, 226, 0.7)' // 紫罗兰
     },
     {
         name: '薇尔莉特',
         url: 'http://slty.site:9527/#/',
-        img: new URL('@/views/redirectorView/images/4.png', import.meta.url).href,
+        img: new URL('@/views/redirectorView/images/4.webp', import.meta.url).href,
         desc: '言语与情感的编织者',
         gradientStart: 'rgba(255, 189, 46, 0.7)' // 金黄
     },
     {
         name: '珂朵莉',
         url: 'http://slty.site:9524/#/',
-        img: new URL('@/views/redirectorView/images/5.png', import.meta.url).href,
+        img: new URL('@/views/redirectorView/images/5.webp', import.meta.url).href,
         desc: '花与牺牲的终焉之诗',
         gradientStart: 'rgba(255, 115, 234, 0.7)' // 樱花粉紫
     },
     {
         name: '加藤惠',
         url: 'http://slty.site:9523/#/',
-        img: new URL('@/views/redirectorView/images/6.png', import.meta.url).href, // 换成加藤惠的图片路径
+        img: new URL('@/views/redirectorView/images/6.webp', import.meta.url).href,
         desc: '不知不觉走进你故事的普通少女',
-        gradientStart: 'rgba(255, 182, 193, 0.7)' // 淡粉樱色，贴合加藤惠温柔的气质
+        gradientStart: 'rgba(255, 182, 193, 0.7)' // 淡粉樱色，
     },
 
     {
         name: '夜刀神十香',
         url: 'http://slty.site:9522/#/',
-        img: new URL('@/views/redirectorView/images/7.png', import.meta.url).href, // 换成十香的图片路径
+        img: new URL('@/views/redirectorView/images/7.webp', import.meta.url).href,
         desc: '宛如烈焰般炽热又单纯的精灵公主',
-        gradientStart: 'rgba(138, 43, 226, 0.7)' // 深紫与蓝的交融，代表十香的灵力与神秘
+        gradientStart: 'rgba(138, 43, 226, 0.7)' // 深紫与蓝的交融，
     },
     {
         name: '韩立',
         url: 'http://slty.site:9521/#/',
-        img: new URL('@/views/redirectorView/images/8.png', import.meta.url).href, // 换成韩立的图片路径
+        img: new URL('@/views/redirectorView/images/8.webp', import.meta.url).href,
         desc: '凡人起步，修仙路上步步为营的坚定者',
-        gradientStart: 'rgba(34, 139, 34, 0.7)' // 青绿色，象征修仙与坚韧
+        gradientStart: 'rgba(34, 139, 34, 0.7)' // 青绿色，
+    },
+    {
+        name: '珂莱塔',
+        url: 'http://slty.site:9520/#/',
+        img: new URL('@/views/redirectorView/images/9.webp', import.meta.url).href,
+        desc: '冷静温柔，银发如霜',
+        gradientStart: 'rgba(145, 200, 230, 0.78)' // 冰蓝偏青，
+    },
+    {
+        name: '椿',
+        url: 'http://slty.site:9519/#/',
+        img: new URL('@/views/redirectorView/images/10.webp', import.meta.url).href,
+        desc: '赤白并立，花瓣似刃',
+        gradientStart: 'rgba(158, 24, 32, 0.75)' // 深椿红
+    },
+    {
+        name: '菲比',
+        url: 'http://slty.site:9518/#/',
+        img: new URL('@/views/redirectorView/images/11.webp', import.meta.url).href,
+        desc: '以光织梦的祈语者，聆听命运的微光低语',
+        gradientStart: 'rgba(255,209,102,0.90)'
+    },
+    {
+        name: '守岸人',
+        url: 'http://slty.site:9517/#/',
+        img: new URL('@/views/redirectorView/images/12.webp', import.meta.url).href,
+        desc: '潮声为灯，守望回声',
+        gradientStart: 'rgba(45, 180, 220, 0.78)' // 冰蓝/海蓝，契合守岸人的回音与晶体感
     }
+
 ]
 
 function go(url: string) {

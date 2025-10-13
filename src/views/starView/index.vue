@@ -17,10 +17,10 @@
       <div class="tips">
         <p>
           当前粉丝：<span class="highlight">{{ fansCount }}</span> / 目标
-          <span class="highlight">600</span> 粉丝开启抽奖（流麻、透光浮雕）
+          <span class="highlight">1000</span> 粉丝开启抽奖（流麻、透光浮雕）
         </p>
         <p>根据充电量增加获奖权重</p>
-        <a href="https://www.bilibili.com/video/BV1tGadzeEin/?vd_source=9c226743db4604656f7bd757543d8bad">已开始（9.13结束）点击跳转
+        <a href="https://www.bilibili.com/video/BV1Y2pFzhEkK/">600粉抽奖（已结束）点击查看结果
         </a>
       </div>
     </div>
@@ -58,11 +58,11 @@
             <div class="tips">
               <p>
                 当前粉丝：<span class="highlight">{{ fansCount }}</span> / 目标
-                <span class="highlight">600</span>
+                <span class="highlight">1000</span>
                 粉丝开启抽奖（流麻、透光浮雕）
               </p>
               <p>根据充电量增加获奖权重</p>
-              <a href="https://www.bilibili.com/video/BV1tGadzeEin/?vd_source=9c226743db4604656f7bd757543d8bad">已开始（9.13结束）点击跳转
+              <a href="https://www.bilibili.com/video/BV1Y2pFzhEkK/">600粉抽奖（已结束）点击查看结果
               </a>
 
             </div>
