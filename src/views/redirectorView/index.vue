@@ -110,6 +110,13 @@ const portals: Portal[] = [
         img: new URL('@/views/redirectorView/images/12.webp', import.meta.url).href,
         desc: '潮声为灯，守望回声',
         gradientStart: 'rgba(45, 180, 220, 0.78)' // 冰蓝/海蓝，契合守岸人的回音与晶体感
+    },
+    {
+        name: '长离',
+        url: 'http://slty.site:9516/#',
+        img: new URL('@/views/redirectorView/images/13.webp', import.meta.url).href,
+        desc: '余焰为烛，策局为路',
+        gradientStart: 'rgba(255,140,70,0.78)' // 余焰暖光，契合长离的谋士与温度感
     }
 
 ]
