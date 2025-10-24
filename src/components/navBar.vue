@@ -47,6 +47,7 @@ interface NavItem {
 const items: NavItem[] = [
     { label: '映界首页', path: '/' },
     { label: '角色入口', path: '/redirector' },
+    { label: '价目表', path: '/price' },
     { label: '构筑札记', path: '/blog' },
     { label: '命运投票', path: '/vote' },
     { label: '抽奖', path: '/lottery' },
@@ -81,6 +82,7 @@ $breakpoint-mobile: 768px;
         font-size: 1.05rem;
         color: #3a3a3a;
         transition: all 0.3s ease;
+
         .count {
             color: #1e90ff;
             font-weight: bold;
