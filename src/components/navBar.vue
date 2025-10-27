@@ -47,7 +47,7 @@ interface NavItem {
 const items: NavItem[] = [
     { label: '映界首页', path: '/' },
     { label: '角色入口', path: '/redirector' },
-    { label: '价目表', path: '/price' },
+    // { label: '价目表', path: '/price' },
     { label: '构筑札记', path: '/blog' },
     { label: '命运投票', path: '/vote' },
     { label: '抽奖', path: '/lottery' },

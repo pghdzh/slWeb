@@ -26,8 +26,8 @@
         </a>
 
         <a class="award-btn currentBtn" href="https://www.bilibili.com/video/BV1JX42zmEJe/" target="_blank"
-          rel="noopener" aria-label="千粉抽奖（10.19截止）查看">
-          千粉抽奖（10.19截止） <span class="hint">↗</span>
+          rel="noopener" aria-label="千粉抽奖（已结束）查看">
+          千粉抽奖（已结束） <span class="hint">↗</span>
         </a>
       </div>
     </div>
@@ -75,8 +75,8 @@
               </a>
 
               <a class="award-btn currentBtn" href="https://www.bilibili.com/video/BV1JX42zmEJe/" target="_blank"
-                rel="noopener" aria-label="千粉抽奖（10.19截止）查看">
-                千粉抽奖（10.19截止） <span class="hint">↗</span>
+                rel="noopener" aria-label="千粉抽奖（已结束）查看">
+                千粉抽奖（已结束） <span class="hint">↗</span>
               </a>
             </div>
           </div>
@@ -157,7 +157,7 @@ onMounted(async () => {
   }
 
   try {
-    const res2 = await getRankingMoneyList();
+    const res2 = await getRankingMoneyList({page: 1, pageSize: 99});
     if (res2.success) {
       ranking.value = res2.data;
     }
