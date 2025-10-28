@@ -17,6 +17,7 @@ export interface Post {
 export const getPostList = (params: {
   page?: number;
   pageSize?: number;
+  keyword?: string;
 }): Promise<
   ResultData<{
     rows: Post[];

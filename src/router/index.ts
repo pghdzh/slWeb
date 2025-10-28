@@ -20,6 +20,10 @@ const router = createRouter({
       component: () => import("@/views/priceView/index.vue"),
     },
     {
+      path: "/note",
+      component: () => import("@/views/noteView/index.vue"),
+    },
+    {
       path: "/blog",
       component: () => import("@/views/blogView/index.vue"),
     },
