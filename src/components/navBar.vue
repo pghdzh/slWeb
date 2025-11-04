@@ -41,7 +41,7 @@ const siteId = "slty";
 const onlineCount = ref<number | null>(null);
 
 // 连接时带上 query.siteId
-const socket = io("http://1.94.189.79:3000", {
+const socket = io("http://36.150.237.25:3000", {
   query: { siteId },
 });
 
@@ -56,8 +56,8 @@ interface NavItem {
 const items: NavItem[] = [
   { label: "映界首页", path: "/" },
   { label: "角色入口", path: "/redirector" },
-  { label: "代肝价目表", path: "/price" },
-  { label: "代肝日记", path: "/note" },
+  // { label: "代肝价目表", path: "/price" },
+  // { label: "代肝日记", path: "/note" },
   { label: "构筑札记", path: "/blog" },
   { label: "命运投票", path: "/vote" },
   { label: "抽奖", path: "/lottery" },
