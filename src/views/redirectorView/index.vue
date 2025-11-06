@@ -141,6 +141,22 @@ const portals: Portal[] = [
     desc: "冷蓝为眼，炽橙为誓",
     gradientStart: "rgba(60,158,255,0.88)", // 冷蓝起点（蓝→柔橙渐变主色，体现嘉贝莉娜的冰火交融气质）
   },
+  {
+    name: "弗洛洛",
+    url: "http://slty.site:9513/#",
+    img: new URL("@/views/redirectorView/images/16.webp", import.meta.url).href,
+    desc: "彼岸花开，血色为幕",
+    gradientStart: "rgba(102, 34, 68, 0.88)", // 深紫红起点（紫红→暗黑渐变，体现弗洛洛的优雅与危险）
+  },
+  {
+  name: "坎特蕾拉",
+  url: "http://slty.site:9512/#",
+  img: new URL("@/views/redirectorView/images/17.webp", import.meta.url).href,
+  desc: "冷蓝如海面，幽紫如潮涌",
+  gradientStart: "rgba(95,224,255,0.88)" // 冷蓝起点（海光）
+  // 可选：gradientEnd: "rgba(111,92,230,0.88)" // 幽紫收尾（若需要渐变）
+}
+
 ];
 
 function go(url: string) {

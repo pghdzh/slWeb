@@ -1,6 +1,5 @@
 <template>
   <div class="home-container">
-
     <div class="mobile-header-btns">
       <button @click="showRanking = true" class="mobile-btn">充电榜</button>
     </div>
@@ -20,13 +19,23 @@
           <span class="highlight">3000</span> 粉丝开启抽奖（流麻、透光浮雕）
         </p>
         <p>根据充电量增加获奖权重</p>
-        <a class="award-btn" href="https://www.bilibili.com/video/BV1Y2pFzhEkK/" target="_blank" rel="noopener"
-          aria-label="600粉抽奖（已结束）查看">
+        <a
+          class="award-btn"
+          href="https://www.bilibili.com/video/BV1Y2pFzhEkK/"
+          target="_blank"
+          rel="noopener"
+          aria-label="600粉抽奖（已结束）查看"
+        >
           600粉抽奖（已结束） <span class="hint">↗</span>
         </a>
 
-        <a class="award-btn currentBtn" href="https://www.bilibili.com/video/BV1JX42zmEJe/" target="_blank"
-          rel="noopener" aria-label="千粉抽奖（已结束）查看">
+        <a
+          class="award-btn currentBtn"
+          href="https://www.bilibili.com/video/BV1JX42zmEJe/"
+          target="_blank"
+          rel="noopener"
+          aria-label="千粉抽奖（已结束）查看"
+        >
           千粉抽奖（已结束） <span class="hint">↗</span>
         </a>
       </div>
@@ -34,20 +43,31 @@
     <div class="hero">
       <h1 class="hero__brand">霜落映界</h1>
       <p class="hero__typed">
-        <span>{{ displayText }}</span><span class="cursor">|</span>
+        <span>{{ displayText }}</span
+        ><span class="cursor">|</span>
       </p>
     </div>
 
     <footer class="site-footer">
       <div class="footer-content">
-        <p>© 2025 霜落天亦. All rights reserved.</p>
+        <p>
+          © 2025 霜落天亦
+          <a href="https://beian.miit.gov.cn/#/Integrated/index"
+            >蜀ICP备2025156493号-1</a
+          >
+        </p>
+
         <p>汇聚幻想，映照世界 —— 永不停息的探索之旅</p>
       </div>
     </footer>
 
     <!-- 弹窗：充电榜 -->
     <transition name="fade">
-      <div class="modal-mask" v-if="showRanking" @click.self="showRanking = false">
+      <div
+        class="modal-mask"
+        v-if="showRanking"
+        @click.self="showRanking = false"
+      >
         <div class="modal-wrapper">
           <div class="modal-header">
             <h3>充电鸣谢榜</h3>
@@ -56,7 +76,11 @@
           <div class="modal-body">
             <!-- 直接复用 .ranking-list 的内容 -->
             <div class="scroll-list">
-              <div class="rank-item" v-for="(item, idx) in ranking" :key="item.name">
+              <div
+                class="rank-item"
+                v-for="(item, idx) in ranking"
+                :key="item.name"
+              >
                 <span class="rank">{{ idx + 1 }}</span>
                 <span class="name">{{ item.name }}</span>
                 <span class="value">{{ item.value }}</span>
@@ -69,13 +93,23 @@
                 粉丝开启抽奖（流麻、透光浮雕）
               </p>
               <p>根据充电量增加获奖权重</p>
-              <a class="award-btn" href="https://www.bilibili.com/video/BV1Y2pFzhEkK/" target="_blank" rel="noopener"
-                aria-label="600粉抽奖（已结束）查看">
+              <a
+                class="award-btn"
+                href="https://www.bilibili.com/video/BV1Y2pFzhEkK/"
+                target="_blank"
+                rel="noopener"
+                aria-label="600粉抽奖（已结束）查看"
+              >
                 600粉抽奖（已结束） <span class="hint">↗</span>
               </a>
 
-              <a class="award-btn currentBtn" href="https://www.bilibili.com/video/BV1JX42zmEJe/" target="_blank"
-                rel="noopener" aria-label="千粉抽奖（已结束）查看">
+              <a
+                class="award-btn currentBtn"
+                href="https://www.bilibili.com/video/BV1JX42zmEJe/"
+                target="_blank"
+                rel="noopener"
+                aria-label="千粉抽奖（已结束）查看"
+              >
                 千粉抽奖（已结束） <span class="hint">↗</span>
               </a>
             </div>
@@ -87,9 +121,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 import { getBiliFansCount } from "@/api/modules/bilbilReq";
-import { getRankingMoneyList } from "@/api/modules/rankingsMoney"
+import { getRankingMoneyList } from "@/api/modules/rankingsMoney";
 // 排行榜示例数据
 interface RankItem {
   name: string;
@@ -101,49 +135,47 @@ const showRanking = ref(false);
 // 示例：粉丝数
 const fansCount = ref(0);
 
-
-
 const phrases = [
-  '星河之上，愿你乘风而行。',
-  '未来如夜幕深邃，而光明始终与你同在。',
-  '在虚拟晨曦中醒来，邂逅超现实祝福。',
-  '代码与幻想，皆由你我共创。'
-]
-const currentPhrase = ref(0)
-const displayText = ref('')
-const cursorVisible = ref(true)
-let charIndex = 0
-let typing = true
+  "星河之上，愿你乘风而行。",
+  "未来如夜幕深邃，而光明始终与你同在。",
+  "在虚拟晨曦中醒来，邂逅超现实祝福。",
+  "代码与幻想，皆由你我共创。",
+];
+const currentPhrase = ref(0);
+const displayText = ref("");
+const cursorVisible = ref(true);
+let charIndex = 0;
+let typing = true;
 
 function type() {
-  const text = phrases[currentPhrase.value]
+  const text = phrases[currentPhrase.value];
   if (typing) {
     if (charIndex < text.length) {
-      displayText.value += text.charAt(charIndex)
-      charIndex++
-      setTimeout(type, 100)
+      displayText.value += text.charAt(charIndex);
+      charIndex++;
+      setTimeout(type, 100);
     } else {
-      typing = false
-      setTimeout(type, 2000)
+      typing = false;
+      setTimeout(type, 2000);
     }
   } else {
     if (charIndex > 0) {
-      displayText.value = text.substring(0, charIndex - 1)
-      charIndex--
-      setTimeout(type, 50)
+      displayText.value = text.substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(type, 50);
     } else {
-      typing = true
-      currentPhrase.value = (currentPhrase.value + 1) % phrases.length
-      setTimeout(type, 500)
+      typing = true;
+      currentPhrase.value = (currentPhrase.value + 1) % phrases.length;
+      setTimeout(type, 500);
     }
   }
 }
 
 onMounted(async () => {
-  type()
+  type();
   setInterval(() => {
-    cursorVisible.value = !cursorVisible.value
-  }, 500)
+    cursorVisible.value = !cursorVisible.value;
+  }, 500);
 
   try {
     const res = await getBiliFansCount();
@@ -157,14 +189,14 @@ onMounted(async () => {
   }
 
   try {
-    const res2 = await getRankingMoneyList({page: 1, pageSize: 99});
+    const res2 = await getRankingMoneyList({ page: 1, pageSize: 99 });
     if (res2.success) {
       ranking.value = res2.data;
     }
   } catch (err) {
     console.error("获取充值记录请求出错：", err);
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -209,10 +241,7 @@ onMounted(async () => {
       max-height: 280px;
       overflow-y: auto;
     }
-
-
   }
-
 }
 
 .hero {
@@ -256,7 +285,14 @@ onMounted(async () => {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
-
+    a {
+      color: #555;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #1e90ff;
+      cursor: pointer;
+    }
     p {
       margin: 0.5rem 0;
       color: #555;
@@ -279,8 +315,6 @@ onMounted(async () => {
 
 /* 小屏适配 */
 @media (max-width: 767px) {
-
-
   .home-container .hero .announcement {
     top: 68px;
     left: 0px;
@@ -416,7 +450,7 @@ onMounted(async () => {
     font-weight: 600;
     font-size: 13px;
     line-height: 1;
-    transition: transform .18s, box-shadow .18s, background .18s;
+    transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -428,7 +462,7 @@ onMounted(async () => {
   }
 
   .currentBtn {
-       background: linear-gradient(to right, #3198f8, #6bbff3);
+    background: linear-gradient(to right, #3198f8, #6bbff3);
   }
 
   .award-btn:hover {
@@ -439,9 +473,8 @@ onMounted(async () => {
   /* 小提示箭头 */
   .award-btn .hint {
     font-size: 12px;
-    opacity: .9;
+    opacity: 0.9;
   }
-
 }
 
 .rank-item {
@@ -450,9 +483,11 @@ onMounted(async () => {
   justify-content: space-between;
   margin: 6px 0;
   padding: 6px 12px;
-  background: linear-gradient(135deg,
-      rgba(173, 216, 255, 0.3),
-      rgba(255, 255, 255, 0.25));
+  background: linear-gradient(
+    135deg,
+    rgba(173, 216, 255, 0.3),
+    rgba(255, 255, 255, 0.25)
+  );
   border-radius: 12px;
   font-size: 0.95rem;
   font-weight: 500;
@@ -504,7 +539,6 @@ onMounted(async () => {
   &:hover {
     transform: translateY(-2px); // 或 translate3d(0, -2px, 0)
     box-shadow: 0 6px 12px rgba(120, 160, 255, 0.4);
-
   }
 }
 </style>
