@@ -149,14 +149,33 @@ const portals: Portal[] = [
     gradientStart: "rgba(102, 34, 68, 0.88)", // 深紫红起点（紫红→暗黑渐变，体现弗洛洛的优雅与危险）
   },
   {
-  name: "坎特蕾拉",
-  url: "http://slty.site:9512/#",
-  img: new URL("@/views/redirectorView/images/17.webp", import.meta.url).href,
-  desc: "冷蓝如海面，幽紫如潮涌",
-  gradientStart: "rgba(95,224,255,0.88)" // 冷蓝起点（海光）
-  // 可选：gradientEnd: "rgba(111,92,230,0.88)" // 幽紫收尾（若需要渐变）
-}
-
+    name: "坎特蕾拉",
+    url: "http://slty.site:9512/#",
+    img: new URL("@/views/redirectorView/images/17.webp", import.meta.url).href,
+    desc: "冷蓝如海面，幽紫如潮涌",
+    gradientStart: "rgba(95,224,255,0.88)",
+  },
+  {
+    name: "卡提希娅",
+    url: "http://slty.site:9511/#", // 请替换为实际网址
+    img: new URL("@/views/redirectorView/images/18.webp", import.meta.url).href, // 请确保图片路径正确
+    desc: "风旅无终章，剑心寄长诗",
+    gradientStart: "rgba(100, 205, 255, 0.72)", // 鸢尾紫起
+  },
+  {
+    name: "尤诺",
+    url: "http://slty.site:9510/#",
+    img: new URL("@/views/redirectorView/images/19.webp", import.meta.url).href,
+    desc: "月光为契，命运回响",
+    gradientStart: "rgba(143, 217, 255, 0.88)",
+  },
+  {
+    name: "赞妮",
+    url: "http://slty.site:9509/#",
+    img: new URL("@/views/redirectorView/images/20.webp", import.meta.url).href,
+    desc: "金库值守专业户，准时下班梦想家",
+    gradientStart: "rgba(255, 193, 7, 0.85)", // 金色调
+  },
 ];
 
 function go(url: string) {
