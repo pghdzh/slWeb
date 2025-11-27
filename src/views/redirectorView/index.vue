@@ -176,6 +176,20 @@ const portals: Portal[] = [
     desc: "金库值守专业户，准时下班梦想家",
     gradientStart: "rgba(255, 193, 7, 0.85)", // 金色调
   },
+  {
+    name: "布兰特",
+    url: "http://slty.site:9508/#",
+    img: new URL("@/views/redirectorView/images/21.webp", import.meta.url).href,
+    desc: "愚人剧团团长，随性洒脱的领航者",
+    gradientStart: "rgba(147, 112, 219, 0.85)",
+  },
+  {
+    name: "奥古斯塔",
+    url: "http://slty.site:9507/#",
+    img: new URL("@/views/redirectorView/images/22.webp", import.meta.url).href,
+    desc: "角斗场上的不败冠冕，诞于血与铁的无畏领袖",
+    gradientStart: "rgba(255, 87, 34, 0.85)", 
+  },
 ];
 
 function go(url: string) {
