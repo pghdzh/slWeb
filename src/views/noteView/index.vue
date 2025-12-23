@@ -4,7 +4,7 @@
     <div class="toolbar" role="search" aria-label="搜索任务">
       <div class="left">
         <h2 class="page-title">代肝日记</h2>
-        <p class="subtitle muted">展示正在托管/已托管的任务进度与日记预览</p>
+        <p class="subtitle muted">展示托管进度与日记预览</p>
       </div>
 
       <div class="controls">
@@ -14,7 +14,7 @@
             @keyup.enter="fetchPosts"
             type="text"
             class="search-input"
-            placeholder="搜索昵称 / 套餐"
+            placeholder="搜索昵称"
             aria-label="搜索昵称"
           />
           <button class="btn sm" @click="fetchPosts" aria-label="搜索">
@@ -97,13 +97,13 @@
       <!-- 无数据提示 -->
       <div v-if="derivedPosts.length === 0" class="empty">
         <div class="empty-card">
-          <p class="muted">未查到相关任务。试试清空搜索或切换页码。</p>
+          <p class="muted">求求了，来个托管单吧</p>
         </div>
       </div>
     </div>
 
     <!-- 分页 -->
-    <div class="pagination" aria-label="分页">
+    <div class="pagination" aria-label="分页" v-if="totalPages > 1">
       <button
         class="btn pager"
         :disabled="page === 1"
@@ -195,9 +195,7 @@ async function fetchPosts() {
   if (res && res.success) {
     posts.value = res.data || [];
     totalPages.value = res.pagination?.totalPages ?? 1;
-    total.value =
-      res.pagination?.totalTotal ??
-      posts.value.length + (totalPages.value - 1) * pageSize;
+    total.value = res.pagination?.total;
   } else {
     posts.value = [];
     totalPages.value = 1;

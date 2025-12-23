@@ -188,7 +188,56 @@ const portals: Portal[] = [
     url: "http://slty.site:9507/#",
     img: new URL("@/views/redirectorView/images/22.webp", import.meta.url).href,
     desc: "角斗场上的不败冠冕，诞于血与铁的无畏领袖",
-    gradientStart: "rgba(255, 87, 34, 0.85)", 
+    gradientStart: "rgba(255, 87, 34, 0.85)",
+  },
+  {
+    name: "仇远",
+    url: "http://slty.site:9506/#",
+    img: new URL("@/views/redirectorView/images/23.webp", import.meta.url).href, //
+    desc: "镜照止水的瑝珑千户，藏剑于心的江湖浪客",
+    gradientStart: "rgba(32, 162, 175, 0.85)", // 青冥色调，契合角色气质
+  },
+  {
+    name: "吟霖",
+    url: "http://slty.site:9505/#", // 请替换为实际链接
+    img: new URL("@/views/redirectorView/images/24.webp", import.meta.url).href, // 请确保图片路径和名称正确
+    desc: "暗巷独行的前巡尉，以悬丝傀儡执掌雷罚的狩者",
+    gradientStart: "rgba(147, 51, 234, 0.85)", // 主色调为紫色，贴合其“罚印”与雷电能量
+  },
+  {
+    name: "秧秧",
+    url: "http://slty.site:9504/#", // 请替换为秧秧主题网站的实际链接
+    img: new URL("@/views/redirectorView/images/25.webp", import.meta.url).href, // 请将图片命名为 yangyang.webp 并放入对应目录
+    desc: "踏白的温柔风语者，以流息感知万物回响的云雀",
+    gradientStart: "rgba(163, 209, 214, 0.85)", // 主色调为秧秧主题青 #A3D1D6
+  },
+  {
+    name: "卡卡罗",
+    url: "http://slty.site:9503/#", // 请替换为卡卡罗页面的实际链接
+    img: new URL("@/views/redirectorView/images/26.webp", import.meta.url).href, // 建议图片命名为类似 `25_card_kakaro.webp`
+    desc: "幽灵猎犬的银锋团长，以雷霆与契约为刃的孤高雇佣兵",
+    gradientStart: "rgba(91, 60, 230, 0.85)", // 使用你定义的 --accent 煊紫 (#5b3ce6)
+  },
+  {
+    name: "折枝",
+    url: "http://slty.site:9502/#", // 请替换为卡卡罗页面的实际链接
+    img: new URL("@/views/redirectorView/images/27.webp", import.meta.url).href, // 建议图片命名为类似 `25_card_kakaro.webp`
+    desc: "流浪的委托画师，以墨为心、以笔为言",
+    gradientStart: "#f3a6b8", // 使用你定义的 --accent 煊紫 (#5b3ce6)
+  },
+  {
+    name: "散华",
+    url: "http://slty.site:9501/#", // 请替换为卡卡罗页面的实际链接
+    img: new URL("@/views/redirectorView/images/28.webp", import.meta.url).href, // 建议图片命名为类似 `25_card_kakaro.webp`
+    desc: "霜锋的赤痕守望者，以异常视界洞见真实频率的修罗",
+    gradientStart: "rgba(176, 196, 222, 0.85)", // 主色调为冷调钢蓝 #B0C4DE，契合冰、刃与静谧感
+  },
+  {
+    name: "琳奈",
+    url: "http://slty.site:9500/#", // 请替换为卡卡罗页面的实际链接
+    img: new URL("@/views/redirectorView/images/29.webp", import.meta.url).href, // 建议图片命名为类似 `25_card_kakaro.webp`
+    desc: "于此，听见色彩的声音。",
+    gradientStart: "rgba(63, 203, 183, 0.85)", // 主色调为琳奈主题薄荷绿 #3FCBB7
   },
 ];
 

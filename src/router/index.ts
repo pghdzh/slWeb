@@ -16,6 +16,14 @@ const router = createRouter({
       component: () => import("@/views/redirectorView/index.vue"),
     },
     {
+      path: "/history",
+      component: () => import("@/views/historyView/index.vue"),
+    },
+    {
+      path: "/message",
+      component: () => import("@/views/messageView/index.vue"),
+    },
+    {
       path: "/price",
       component: () => import("@/views/priceView/index.vue"),
     },

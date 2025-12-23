@@ -56,10 +56,12 @@ interface NavItem {
 const items: NavItem[] = [
   { label: "映界首页", path: "/" },
   { label: "角色入口", path: "/redirector" },
-  // { label: "代肝价目表", path: "/price" },
+  // { label: "鸣潮编年史", path: "/history" },
+  { label: "聊天", path: "/message" },
+  { label: "鸣潮代肝价目表", path: "/price" },
   // { label: "代肝日记", path: "/note" },
-  { label: "构筑札记", path: "/blog" },
-  { label: "命运投票", path: "/vote" },
+  // { label: "构筑札记", path: "/blog" },
+  // { label: "命运投票", path: "/vote" },
   { label: "抽奖", path: "/lottery" },
 ];
 onMounted(() => {
